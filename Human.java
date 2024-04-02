@@ -1,4 +1,4 @@
-import java.util.Objects;
+package src;
 
 enum Status
 {
@@ -19,22 +19,22 @@ enum Status
 public final class Human
 {
 	protected Status status;
-	private double dE;
-	private double dI;
-	private double dR;
-	private double posX;
-	private double posY;
+	private int dE;
+	private int dI;
+	private int dR;
+	private int posX;
+	private int posY;
 
 	Twister mtRandom = new Twister();
 	public int cpt_etat=0;	
 
-	public Human(Status status){
-		this.status = status;
-		this.dE = mtRandom.negExp(3);
-		this.dI = mtRandom.negExp(7);
-		this.dR = mtRandom.negExp(365);
-		this.posX = mtRandom.genrand_int32()%300;
-		this.posY = mtRandom.genrand_int32()%300;
+	public Human(Status s){
+		this.status = s;
+		this.dE = (int) (mtRandom.negExp(3));
+		this.dI = (int) (mtRandom.negExp(7));
+		this.dR = (int) (mtRandom.negExp(365));
+		this.posX = (int) (mtRandom.genrand_int32()%300);
+		this.posY = (int) (mtRandom.genrand_int32()%300);
 	}
 	
 	public void resetCompteurEtat(){
@@ -53,15 +53,27 @@ public final class Human
 		this.cpt_etat++;
 	}
 	
-	public double getPosX(){
+	public int getPosX(){
 		return this.posX;
 	}
 	
-	public double getPosY(){
+	public int getPosY(){
 		return this.posY;
 	}
+
+	public double getdE() {
+		return dE;
+	}
+
+	public double getdI() {
+		return dI;
+	}
+
+	public double getdR() {
+		return dR;
+	}
 	
-	public void move(double posX, double posY){
+	public void move(int posX, int posY){
 		this.posX = posX;
 		this.posY = posY;
 	}
