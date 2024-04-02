@@ -161,13 +161,14 @@ class Monde
 	
 	public int toricEspace(int index)
 	{
+		int maxIndex = 300;
 		if (index < 0)
 		{
-			return 299;
+			return maxIndex + index;
 		}
-		if (index > 299)
+		if (index >= maxIndex)
 		{
-			return 0;
+			return index - maxIndex;
 		}
 		else
 		{
