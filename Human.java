@@ -7,7 +7,7 @@ enum Status
 
 	private Status(int v)
 	{
-		valeur=v;
+		valeur = v;
 	}
 
 	public int getValeur()
@@ -19,67 +19,59 @@ enum Status
 public final class Human
 {
 	protected Status status;
-	private char status;
-	private int dE;
-	private int dI;
-	private int dR;
-	private int posX;
-	private int poxY;
-	
+	private double dE;
+	private double dI;
+	private double dR;
+	private double posX;
+	private double posY;
+
+	Twister mtRandom = new Twister();
 	public int cpt_etat=0;	
 
-	public Human(char status){
+	public Human(Status status){
 		this.status = status;
-		this.dE = mt.negExp(3);
-		this.dI = mt.negExp(7);
-		this.dR = mt.negExp(365);
-		this.posX = mt.genrand_int32()%300;
-		this.posY = mt.genrand_int32()%300;
-		
-	
+		this.dE = mtRandom.negExp(3);
+		this.dI = mtRandom.negExp(7);
+		this.dR = mtRandom.negExp(365);
+		this.posX = mtRandom.genrand_int32()%300;
+		this.posY = mtRandom.genrand_int32()%300;
 	}
 	
 	public void resetCompteurEtat(){
 		this.cpt_etat = 0;
 	}
 	
-	
-	public char getStatus(){
-		return this.status;
-	}
-	
-	public char setStatus(char s){
-		this.status = s;
-	}
+	public Status getStatus(){
+        return this.status;
+    }
+
+	public void setStatus(Status s){
+        this.status = s;
+    }
 	
 	public void incrementCpt(){
 		this.cpt_etat++;
 	}
 	
-	public int getPosX(){
+	public double getPosX(){
 		return this.posX;
 	}
 	
-	public int getPosY(){
+	public double getPosY(){
 		return this.posY;
 	}
 	
-	
-	public void move(int posX, int posY){
+	public void move(double posX, double posY){
 		this.posX = posX;
 		this.posY = posY;
 	}
 	
 	public void infection(){
-		this.status = 'I';
+		this.status = Status.I;
 		this.cpt_etat = 0; 
 	}
 	
 	public int getCpt(){
 		return this.cpt_etat;
 	}
-	
-	
-	
-	
 }
