@@ -1,179 +1,215 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 class Monde
 {
-	private int[][] carteNbInfecte = new int[300][300];
+	private int[][] carteNbInfecte;
 
-	// Initialize the matrix with 0
-	for (int i = 0; i < 300; i++) {
-	    for (int j = 0; j < 300; j++) {
-		carteNbInfecte[i][j] = 0;
-	    }
-	}
-
-	int nbS = 0;
-	int nbE = 0;
-	int nbI = 0;
-	int nbR = 0;
+	int nbS = 0; // Nombre de susceptible
+	int nbE = 0; // Nombre d'exposé
+	int nbI = 0; // Nombre d'infecté
+	int nbR = 0; // Nombre de récupéré
 	Twister mtRandom;
 	List<Human> listeHumain;
 	List<Human> listeInfected;
 	
 	public Monde(Twister random)
 	{
+		carteNbInfecte = new int[300][300];
+
+		// Initialize the matrix with 0
+		for (int i = 0; i < 300; i++) 
+		{
+			for (int j = 0; j < 300; j++) 
+			{
+				carteNbInfecte[i][j] = 0;
+			}
+		}
+
 		listeHumain = new ArrayList<Human>();
-		for(int i = 0; i<19980; i++){
-			listeHumain.add(new Human('S'));
+		for (int i = 0; i < 19980; i++)
+		{
+			listeHumain.add(new Human(Status.S));
 			this.nbS++;
 		}
-		for(int i = 0; i<20; i++){
-			listeHumain.add(new Human('I'));
+		for (int i = 0; i < 20; i++)
+		{
+			listeHumain.add(new Human(Status.I));
 			this.nbI++;
 		}
 		this.mtRandom = random;
 		
-		for(Human h : listeHumain){
-			if(h.getStatus() == 'I'){
+		for (Human h : listeHumain)
+		{
+			if (h.getStatus() == Status.I)
+			{
 				carteNbInfecte[h.getPosX()][h.getPosY()]++;
 			}
 		}
 	}
 	
-	public void runSimulation(int numFichier){
-		
+	public void runSimulation(int numFichier)
+	{
 		//0 - Créer un fichier avec numFichier
-		String filename = "resultat" + numFichier + ".csv";
+		String folderpath = "resultat/";
+		String filename = folderpath + "resultat" + numFichier + ".csv";
 
-		FileWriter writer = new FileWriter(filename);
-		
-		for(int i = 0; i < 730; i++){
-			//1 - Sauvegarder nbS, nbE, nbI, nbR dans fichier resultat[numFichier].csv
+		try (FileWriter writer = new FileWriter(filename)) 
+		{
+			for (int i = 0; i < 730; i++)
+			{
+				//1 - Sauvegarder nbS, nbE, nbI, nbR dans fichier resultat[numFichier].csv
 
-			// Writing values to CSV
-			writer.write(this.nbS + "," + this.nbE + "," + this.nbI + "," + this.nbR + "\n");
-			
-			//2 - Parcourir les humains pour les traiter.
-			//shuffle(listeHumain, mtRandom);
-			for(Human h : listeHumain){
-				char status = h.getStatus();
+				// Writing values to CSV
+				writer.write(this.nbS + "," + this.nbE + "," + this.nbI + "," + this.nbR + "\n");
+				
+				//2 - Parcourir les humains pour les traiter.
 
-				switch (status) {
-				    case 'S':
-					handleSusceptibleHuman(h);
-					break;
-				    case 'E':
-					handleExposedHuman(h);
-					break;
-				    case 'I':
-					handleInfectedHuman(h);
-					break;
-				    case 'R':
-					handleRecoveredHuman(h);
-					break;
-				    default:
-					System.out.println("Unknown status");
-					// Add code to handle other statuses if needed
-					break;
-			}	
+				// Mélanger la liste d'humain
+				Collections.shuffle(listeHumain, mtRandom);
+
+				for(Human h : listeHumain)
+				{
+					Status status = h.getStatus();
+
+					switch (status) 
+					{
+						case S:
+						handleSusceptibleHuman(h);
+						break;
+						case E:
+						handleExposedHuman(h);
+						break;
+						case I:
+						handleInfectedHuman(h);
+						break;
+						case R:
+						handleRecoveredHuman(h);
+						break;
+						default:
+						System.out.println("Unknown status");
+						break;
+					}
+				}	
+			}
 			
-			
-			
-		} 
-	
-	
+			// Close the writer
+			writer.close();
+
+		} catch (IOException e) 
+		{
+			System.err.println("Error writing to file: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
-	public void handleSusceptibleHuman(){
-		h.move(this.mtRandom.genrand_int32()%300,this.mtRandom.genrand_int32()%300);
+	public void handleSusceptibleHuman(Human h)
+	{
+		h.move((int) (this.mtRandom.genrand_int32()%300),(int) (this.mtRandom.genrand_int32()%300));
 		contamine(h);
 		
 	}
 	
-	public void handleExposedHuman(){
-		h.move(this.mtRandom.genrand_int32()%300,this.mtRandom.genrand_int32()%300);
-		h.incrementState();
-	
+	public void handleExposedHuman(Human h)
+	{
+		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		incrementState(h);
 	}
 	
-	public void handleInfectedHuman(){
+	public void handleInfectedHuman(Human h)
+	{
 		carteNbInfecte[h.getPosX()][h.getPosY()]--;
-		h.move(this.mtRandom.genrand_int32()%300,this.mtRandom.genrand_int32()%300);
-		h.incrementState();
-		if(h.getStatus == 'I'){
+		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		incrementState(h);
+		if (h.getStatus() == Status.I)
+		{
 			carteNbInfecte[h.getPosX()][h.getPosY()]++;
 		}
-		
-
 	}
 	
-	public void handleRecoveredHuman(){
-		h.move(this.mtRandom.genrand_int32()%300,this.mtRandom.genrand_int32()%300);
-		h.incrementState();
+	public void handleRecoveredHuman(Human h)
+	{
+		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		incrementState(h);
 	}
 	
-	
-	
-	public void contamine(Human h){
-	
+	public void contamine(Human h)
+	{
 		int nbInfecteVoisinage = 0;
 		
-		for(int i = h.getPosX() - 1; i < h.getPosX() + 1; i++){
-			for(int j = h.getPosY() - 1; j < h.getPosY() + 1; j++){
+		for (int i = h.getPosX() - 1; i < h.getPosX() + 1; i++)
+		{
+			for (int j = h.getPosY() - 1; j < h.getPosY() + 1; j++)
+			{
 				nbInfecteVoisinage += carteNbInfecte[toricEspace(i)][toricEspace(j)];
 			}
-		
 		} 
 		
 		double proba = 1 - mtRandom.negExp(-0.5 * nbInfecteVoisinage);
 		double random = mtRandom.genrand_real1();
-		if(random < proba){
+		if(random < proba)
+		{
 			h.infection();
 			this.nbS--;
 			this.nbI++;
 		}
 	}
 	
-	public int toricEspace(int index){
-		if(index < 0){
+	public int toricEspace(int index)
+	{
+		if (index < 0)
+		{
 			return 299;
 		}
-		if (index > 299){
+		if (index > 299)
+		{
 			return 0;
 		}
-		else{
+		else
+		{
 			return index;
 		}
 	}
 	
-	public void incrementState(Human h){
-		if(h.getStatus() == 'I'){
-			if(h.getCpt() > dI){
-				h.setStatus('E');
+	public void incrementState(Human h)
+	{
+		if (h.getStatus() == Status.I)
+		{
+			if (h.getCpt() > h.getdI())
+			{
+				h.setStatus(Status.E);
 				this.nbS--;
 				this.nbE++;
 				h.resetCompteurEtat();
 			}
-			h.incrementCpt()++;
+			h.incrementCpt();
 		}
-		if(status == 'E'){
-			if(cpt_etat > dE){
-				this.status = 'R';
-				resetCompteurEtat();
+
+		if (h.getStatus() == Status.E)
+		{
+			if (h.getCpt() > h.getdE())
+			{
+				h.setStatus(Status.R);
+				this.nbE--;
+				this.nbI++;
+				h.resetCompteurEtat();
 			}
-			this.cpt_etat++;
+			h.incrementCpt();
 		}
 		
-		if(status == 'R'){
-			if(cpt_etat > dR){
-				this.status = 'S';
-				resetCompteurEtat();
+		if (h.getStatus() == Status.R)
+		{
+			if (h.getCpt() > h.getdR())
+			{
+				h.setStatus(Status.S);
+				this.nbR--;
+				this.nbS++;
+				h.resetCompteurEtat();
 			}
-			this.cpt_etat++;
+			h.incrementCpt();
 		}
-		
 	}
-	
-	
-	
 }
