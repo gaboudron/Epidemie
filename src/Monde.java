@@ -55,7 +55,7 @@ class Monde
 	public void runSimulation(int numFichier)
 	{
 		//0 - Créer un fichier avec numFichier
-		String folderpath = "resultat/";
+		String folderpath = "resultats/";
 		String filename = folderpath + "resultat" + numFichier + ".csv";
 
 		try (FileWriter writer = new FileWriter(filename)) 
