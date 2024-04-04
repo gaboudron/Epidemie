@@ -78,7 +78,7 @@ public final class Human
 		this.posY = posY;
 	}
 	
-	public void infection(){
+	public void exposed(){
 		this.status = Status.E;
 		this.cpt_etat = 0; 
 	}
