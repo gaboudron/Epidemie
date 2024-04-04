@@ -160,7 +160,7 @@ class Monde
 		double random = mtRandom.genrand_real1();
 		if(random < proba)
 		{
-			h.infection();
+			h.exposed();
 			this.nbS--;
 			this.nbE++;
 		}
