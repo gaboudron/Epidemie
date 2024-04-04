@@ -109,21 +109,26 @@ class Monde
 	
 	public void handleSusceptibleHuman(Human h)
 	{
-		h.move((int) (this.mtRandom.genrand_int32()%300),(int) (this.mtRandom.genrand_int32()%300));
+		int randomX = (int) (mtRandom.genrand_int32() % 300);
+		int randomY = (int) (mtRandom.genrand_int32() % 300);
+		h.move(randomX, randomY);
 		contamine(h);
-		
 	}
 	
 	public void handleExposedHuman(Human h)
 	{
-		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		int randomX = (int) (mtRandom.genrand_int32() % 300);
+		int randomY = (int) (mtRandom.genrand_int32() % 300);
+		h.move(randomX, randomY);
 		incrementState(h);
 	}
 	
 	public void handleInfectedHuman(Human h)
 	{
 		carteNbInfecte[toricEspace(h.getPosX())][toricEspace(h.getPosY())]--;
-		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		int randomX = (int) (mtRandom.genrand_int32() % 300);
+		int randomY = (int) (mtRandom.genrand_int32() % 300);
+		h.move(randomX, randomY);
 		incrementState(h);
 		if (h.getStatus() == Status.I)
 		{
@@ -133,7 +138,9 @@ class Monde
 	
 	public void handleRecoveredHuman(Human h)
 	{
-		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
+		int randomX = (int) (mtRandom.genrand_int32() % 300);
+		int randomY = (int) (mtRandom.genrand_int32() % 300);
+		h.move(randomX, randomY);
 		incrementState(h);
 	}
 	
@@ -147,7 +154,7 @@ class Monde
 			{
 				nbInfecteVoisinage += carteNbInfecte[toricEspace(i)][toricEspace(j)];
 			}
-		} 
+		}
 		
 		double proba = 1 - Math.exp(-0.5 * nbInfecteVoisinage);
 		double random = mtRandom.genrand_real1();
@@ -155,13 +162,13 @@ class Monde
 		{
 			h.infection();
 			this.nbS--;
-			this.nbI++;
+			this.nbE++;
 		}
 	}
 	
 	public int toricEspace(int index)
 	{
-		int maxIndex = 300;
+		final int maxIndex = 300;
 		if (index < 0)
 		{
 			return maxIndex + index;
@@ -178,18 +185,6 @@ class Monde
 	
 	public void incrementState(Human h)
 	{
-		if (h.getStatus() == Status.I)
-		{
-			if (h.getCpt() > h.getdI())
-			{
-				h.setStatus(Status.R);
-				this.nbS--;
-				this.nbR++;
-				h.resetCompteurEtat();
-			}
-			h.incrementCpt();
-		}
-
 		if (h.getStatus() == Status.E)
 		{
 			if (h.getCpt() > h.getdE())
@@ -197,6 +192,18 @@ class Monde
 				h.setStatus(Status.I);
 				this.nbE--;
 				this.nbI++;
+				h.resetCompteurEtat();
+			}
+			h.incrementCpt();
+		}
+
+		if (h.getStatus() == Status.I)
+		{
+			if (h.getCpt() > h.getdI())
+			{
+				h.setStatus(Status.R);
+				this.nbI--;
+				this.nbR++;
 				h.resetCompteurEtat();
 			}
 			h.incrementCpt();
