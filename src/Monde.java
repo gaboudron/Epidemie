@@ -47,7 +47,7 @@ class Monde
 		{
 			if (h.getStatus() == Status.I)
 			{
-				carteNbInfecte[h.getPosX()][h.getPosY()]++;
+				carteNbInfecte[toricEspace(h.getPosX())][toricEspace(h.getPosY())]++;
 			}
 		}
 	}
@@ -122,7 +122,7 @@ class Monde
 	
 	public void handleInfectedHuman(Human h)
 	{
-		carteNbInfecte[h.getPosX()][h.getPosY()]--;
+		carteNbInfecte[toricEspace(h.getPosX())][toricEspace(h.getPosY())]--;
 		h.move((int) (this.mtRandom.genrand_int32()%300), (int) (this.mtRandom.genrand_int32()%300));
 		incrementState(h);
 		if (h.getStatus() == Status.I)
@@ -182,9 +182,9 @@ class Monde
 		{
 			if (h.getCpt() > h.getdI())
 			{
-				h.setStatus(Status.E);
+				h.setStatus(Status.R);
 				this.nbS--;
-				this.nbE++;
+				this.nbR++;
 				h.resetCompteurEtat();
 			}
 			h.incrementCpt();
@@ -194,7 +194,7 @@ class Monde
 		{
 			if (h.getCpt() > h.getdE())
 			{
-				h.setStatus(Status.R);
+				h.setStatus(Status.I);
 				this.nbE--;
 				this.nbI++;
 				h.resetCompteurEtat();

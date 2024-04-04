@@ -1,4 +1,5 @@
 package src;
+
 enum Status
 {
 	S(0),E(1),I(2),R(3);
