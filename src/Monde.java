@@ -127,7 +127,7 @@ class Monde
 		incrementState(h);
 		if (h.getStatus() == Status.I)
 		{
-			carteNbInfecte[h.getPosX()][h.getPosY()]++;
+			carteNbInfecte[toricEspace(h.getPosX())][toricEspace(h.getPosY())]++;
 		}
 	}
 	
@@ -149,7 +149,7 @@ class Monde
 			}
 		} 
 		
-		double proba = 1 - mtRandom.negExp(-0.5 * nbInfecteVoisinage);
+		double proba = 1 - Math.exp(-0.5 * nbInfecteVoisinage);
 		double random = mtRandom.genrand_real1();
 		if(random < proba)
 		{
