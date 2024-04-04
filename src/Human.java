@@ -79,7 +79,7 @@ public final class Human
 	}
 	
 	public void infection(){
-		this.status = Status.I;
+		this.status = Status.E;
 		this.cpt_etat = 0; 
 	}
 	
