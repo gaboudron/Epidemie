@@ -417,4 +417,14 @@ public final class Twister extends Random {
 
     return randomValue;
   }
+
+  public void init_by_array(int[] init) {
+    // Initialiser la classe avec la première valeur du tableau
+    this.setSeed(init[0]);
+    // Utiliser le reste du tableau pour ajuster l'état interne
+    for (int i = 1; i < init.length; i++) {
+        this.nextInt(32);
+        this.setSeed(init[i]);
+    }
+  }
 }
