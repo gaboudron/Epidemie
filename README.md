@@ -34,7 +34,7 @@ Une fois la simulation terminée, les résultats sont ensuite affichés à l'aid
 
 ## Auteurs
 
-Ce projet a été réalisé par Nallé BARTIN et Gabriel BOUDRON.
+Ce projet a été réalisé par Nalle BARTIN et Gabriel BOUDRON.
 
 ## Remerciements
 
