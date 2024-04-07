@@ -409,22 +409,8 @@ public final class Twister extends Random {
   }
 
   public double negExp(double mean) {
-    if (mean <= 0) {
-        throw new IllegalArgumentException("Mean should be positive.");
-    }
-
     double randomValue = -mean * Math.log(1.0 - genrand_real1());
 
     return randomValue;
-  }
-
-  public void init_by_array(int[] init) {
-    // Initialiser la classe avec la première valeur du tableau
-    this.setSeed(init[0]);
-    // Utiliser le reste du tableau pour ajuster l'état interne
-    for (int i = 1; i < init.length; i++) {
-        this.nextInt(32);
-        this.setSeed(init[i]);
-    }
   }
 }
