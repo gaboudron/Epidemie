@@ -1,2 +1,9 @@
 build/
 resultats/moyenne.csv
+RapportSimu.aux
+RapportSimu.fdb_latexmk
+RapportSimu.fls
+RapportSimu.log
+RapportSimu.out
+RapportSimu.synctex.gz
+RapportSimu.toc
