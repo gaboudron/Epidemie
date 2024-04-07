@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,latexsym,amsthm}
+\usepackage[french]{babel}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{tabto}
+
+\newlength{\larg}
+\setlength{\larg}{14.5cm}
+
+\title{
+{\rule{\larg}{1mm}}\vspace{5mm}
+\begin{tabular}{p{0cm} r c}
+   & {\huge \textbf{Projet Informatique (Simulation) TP3}} \\
+   & \\
+   &{\huge Projet Pandémie}
+\end{tabular}\\
+\vspace{2mm}
+{\rule{\larg}{1mm}}
+\vspace{2mm} \\
+}
+  
+\author{\begin{tabular}{p{13.7cm}}
+Bourdon Gabriel \hspace{5cm} BARTIN Nallé 
+\end{tabular}\\
+\\ }\medskip
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+Ce projet consistait à reproduire l'évolution de la propagation d'une épidémie au cours du temps de manière simple grâce à un générateur de nombre aléatoire. Nous avons utilisé pour cette simulation un monde d'une surface de $300 \times 300$ dans lequel nous avons crée $20000$ humains différents selon des paramètres de risques d'infections dont 20 déjà infectés au début.
+
+\section{Méthodes}
+Nous avons donc crée plusieurs $class$ dont: \begin{itemize} \item Monde; \item Humain; \end{itemize}
+
+Ainsi que d'autres qui nous ont servit pour faire nos tests. Cependant pour faire une expérience comme celle-ci avec toutes ces $class$ il nous a fallut donné certains paramètres à nos humains, ainsi que certaines méthodes pour pouvoir gérer la modification des status de nos humains car ceux-ci peuvent avoir différents status $(Infected, Susceptible, Recovered, Exposed)$ à chaque pas de temps que nous avons représenté grâce à des boucles $for$.
+Ces status sont pris par chaque humain de manière indépendante grâce à la fonction \textbf{negExp}, ainsi que les fonctions qui permettent le changement de status comme avec la fonction qui nous permet de savoir si un humain va être infecter ou non.
+
+\section{Conclusion}
+Pour finir nous avons utilisé le Mersenne Twister un simulateur de nombre aléatoire celui-ci doit être initialisé correctement pour donné des résultats coéhrents cela dépend de la graine entrée dans le générateur.
+Cela nous permet ensuite de générer des résultats en grand nombre assez rapidement.
+
+
+\end{document}
