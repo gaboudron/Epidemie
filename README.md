@@ -7,10 +7,10 @@ Ce projet est une simulation d'épidémie. Il vise à développer un modèle mul
 Le dossier "projet-simu" contient les éléments suivants :
 
 - [ ] src/ : Ce répertoire contient les codes sources du projet.
-- - Human.java : La classe représentant une entité humaine. Un humain peut avoir 4 status différents : Susceptible, Exposed, Infected ou Recovered. Son état varie en fonction de son entourage et de le temps passé dans chaque état.
-- - Monde.java : La classe décrivant le monde de la simulation. Ici, le monde est représenté par une grille 300x300. Cette classe contient aussi les méthodes de changement d'état d'un humain, ainsi que la méthode pour écrire les résultats dans un fichier .csv.
-- - Twister.java : Une classe pour le générateur de nombre aléatoires de Mersenne Twister. On a implémenté en plus dedans les méthodes genrand_int32, genrand_real1, genrand_real2 et negExp.
-- - Test.java : La classe permettant de démarrer la simulation. 100 fichiers .csv sont crées, correspondant chacun à une simulation (boucle for). 
+- Human.java : La classe représentant une entité humaine. Un humain peut avoir 4 status différents : Susceptible, Exposed, Infected ou Recovered. Son état varie en fonction de son entourage et de le temps passé dans chaque état.
+- Monde.java : La classe décrivant le monde de la simulation. Ici, le monde est représenté par une grille 300x300. Cette classe contient aussi les méthodes de changement d'état d'un humain, ainsi que la méthode pour écrire les résultats dans un fichier .csv.
+- Twister.java : Une classe pour le générateur de nombre aléatoires de Mersenne Twister. On a implémenté en plus dedans les méthodes genrand_int32, genrand_real1, genrand_real2 et negExp.
+- Test.java : La classe permettant de démarrer la simulation. 100 fichiers .csv sont crées, correspondant chacun à une simulation (boucle for). 
 - [ ] build/src/ : Ce dossier contient les fichiers .class générés à partir des fichiers sources.
 - [ ] resultats/ : Ce répertoire est destiné à enregistrer les 100 fichiers .csv générés lors de la simulation.
 
