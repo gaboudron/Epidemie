@@ -30,11 +30,11 @@ public final class Human
 
 	public Human(Status s){
 		this.status = s;
-		this.dE = (int) (mtRandom.negExp(3));
-		this.dI = (int) (mtRandom.negExp(7));
-		this.dR = (int) (mtRandom.negExp(365));
-		this.posX = (int) (mtRandom.genrand_int32()%300);
-		this.posY = (int) (mtRandom.genrand_int32()%300);
+		this.dE = (int) (this.mtRandom.negExp(3));
+		this.dI = (int) (this.mtRandom.negExp(7));
+		this.dR = (int) (this.mtRandom.negExp(365));
+		this.posX = (int) (this.mtRandom.genrand_int32()%300);
+		this.posY = (int) (this.mtRandom.genrand_int32()%300);
 	}
 	
 	public void resetCompteurEtat(){

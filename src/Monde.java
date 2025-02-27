@@ -148,9 +148,9 @@ class Monde
 	{
 		int nbInfecteVoisinage = 0;
 		
-		for (int i = h.getPosX() - 1; i < h.getPosX() + 1; i++)
+		for (int i = h.getPosX() - 1; i <= h.getPosX() + 1; i++)
 		{
-			for (int j = h.getPosY() - 1; j < h.getPosY() + 1; j++)
+			for (int j = h.getPosY() - 1; j <= h.getPosY() + 1; j++)
 			{
 				nbInfecteVoisinage += carteNbInfecte[toricEspace(i)][toricEspace(j)];
 			}

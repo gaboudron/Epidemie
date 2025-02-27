@@ -405,11 +405,16 @@ public final class Twister extends Random {
   public double genrand_real1() {
     // Call genrand_int32() and divide by 2^32-1
     long randomValue = genrand_int32();
-    return (double)randomValue / (4294967295.0);
+    return (double)randomValue * (1.0/4294967295.0);
+  }
+
+  public double genrand_real2() {
+    long randomValue = genrand_int32();
+    return (double)randomValue * (1.0/4294967296.0); 
   }
 
   public double negExp(double mean) {
-    double randomValue = -mean * Math.log(1.0 - genrand_real1());
+    double randomValue = -mean * Math.log(1.0 - genrand_real2());
 
     return randomValue;
   }
